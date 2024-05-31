@@ -1,0 +1,12 @@
+set.seed(123)
+x <- seq(1, 10, by = 0.1)
+y <- 3*x^2 + rnorm(length(x), mean = 0, sd = 5)
+
+fit <- lm(y ~ poly(x, 2, raw = TRUE))
+
+x_pred <- seq(min(x), max(x), length.out = 100)
+y_pred <- predict(fit, newdata = data.frame(x = x_pred))
+
+plot(x, y, main = "Nuage de points avec tendance non linéaire", xlab = "X", ylab = "Y", col = "blue")
+lines(x_pred, y_pred, col = "red", lwd = 2)
+legend("topright", legend = c("Données observées", "Courbe ajustée"), col = c("blue", "red"), lwd = c(1, 2))
